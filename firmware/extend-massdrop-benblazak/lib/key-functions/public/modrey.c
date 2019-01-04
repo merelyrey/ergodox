@@ -1,0 +1,599 @@
+/* ----------------------------------------------------------------------------
+ * key functions : modifications by rey : code
+ * ----------------------------------------------------------------------------
+ *  
+ *  
+ *  
+ * ------------------------------------------------------------------------- */
+
+
+#include "../../../lib-other/pjrc/usb_keyboard/usb_keyboard.h"
+#include "../../../lib/usb/usage-page/keyboard.h"
+#include "../../../main.h"
+#include "../../../keyboard/layout.h"
+#include "../public.h"
+#include "../private.h"
+
+// ----------------------------------------------------------------------------
+
+// convenience macros
+#define  LAYER         main_arg_layer
+#define  ROW           main_arg_row
+#define  COL           main_arg_col
+#define  IS_PRESSED    main_arg_is_pressed
+
+// ----------------------------------------------------------------------------
+// descriptions
+// ----------------------------------------------------------------------------
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_left_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_right_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_left_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_right_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_left_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_right_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_left_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	if (_kbfun_is_pressed(KEY_LeftShift))
+		_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_right_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	if (_kbfun_is_pressed(KEY_RightShift))
+		_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *''
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_left_shift_with_altgr(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+    _kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_right_shift_with_altgr(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_left_shift_reversed_with_altgr_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	if (_kbfun_is_pressed(KEY_LeftShift))
+		_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_right_shift_reversed_with_altgr_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	if (_kbfun_is_pressed(KEY_RightShift))
+		_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_altgr(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_altgr_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_left_alt(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_with_left_alt_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(!IS_PRESSED, KEY_LeftAlt);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_with_left_alt(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftAlt);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_with_left_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_with_right_shift(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	_kbfun_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_reversed_with_left_alt_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftAlt);
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_reversed_with_left_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	if (_kbfun_is_pressed(KEY_RightAlt))
+		_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Press|Release
+ *
+ * [description]
+ *   Generate a normal keypress or keyrelease
+ */
+void kbfun_press_release_removed_altgr_reversed_with_right_shift_reversed(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_press_release(IS_PRESSED, keycode);
+	_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	if (_kbfun_is_pressed(KEY_RightAlt))
+		_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	else
+		_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Media Key Press Release
+ *
+ * [description]
+ *   Generate a keypress for a media key, such as play/pause, next track, or
+ *   previous track
+ *
+ */
+void kbfun_mediakey_press_release(void) {
+	uint8_t keycode = kb_layout_get(LAYER, ROW, COL);
+	_kbfun_mediakey_press_release(IS_PRESSED, keycode);
+}
+
+/*
+ * [name]
+ *   Layer push #1
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_1_with_left_shift(void) {
+	kbfun_layer_push_1();
+	_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+}
+
+/*
+ * [name]
+ *   Layer pop #1
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_1_with_left_shift(void) {
+    if (_kbfun_is_pressed(KEY_LeftShift) && !_kbfun_is_pressed(KEY_RightAlt))
+        _kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+    else
+        _kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+ 	//_kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	kbfun_layer_pop_1();
+}
+
+/*
+ * [name]
+ *   Layer push #2
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_2_with_right_shift(void) {
+	kbfun_layer_push_2();
+	_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+}
+
+/*
+ * [name]
+ *   Layer pop #2
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_2_with_right_shift(void) {
+    if (_kbfun_is_pressed(KEY_RightShift) && !_kbfun_is_pressed(KEY_RightAlt))
+        _kbfun_press_release(IS_PRESSED, KEY_RightShift);
+    else
+        _kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+	//_kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	kbfun_layer_pop_2();
+}
+
+/*
+ * [name]
+ *   Layer push #3
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_3_with_alt_gr(void) {
+	kbfun_layer_push_3();
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ * [name]
+ *   Layer pop #3
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_3_with_alt_gr(void) {
+	if (_kbfun_is_pressed(KEY_RightAlt))
+        _kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	else
+        _kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	//_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	kbfun_layer_pop_3();
+}
+
+/*
+ * [name]
+ *   Layer push #4
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_4_remove_left_shift(void) {
+	_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+	kbfun_layer_push_4();
+}
+
+/*
+ * [name]
+ *   Layer pop #4
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_4_remove_left_shift(void) {
+	kbfun_layer_pop_4();
+	if (!_kbfun_is_pressed(KEY_LeftShift))
+        _kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+	else
+        _kbfun_press_release(IS_PRESSED, KEY_LeftShift);
+	//_kbfun_press_release(!IS_PRESSED, KEY_LeftShift);
+}
+
+/*
+ * [name]
+ *   Layer push #4
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_4_remove_right_shift(void) {
+	_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+	kbfun_layer_push_4();
+}
+
+/*
+ * [name]
+ *   Layer pop #4
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_4_remove_right_shift(void) {
+	kbfun_layer_pop_4();
+	if (!_kbfun_is_pressed(KEY_RightShift))
+        _kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+	else
+        _kbfun_press_release(IS_PRESSED, KEY_RightShift);
+	//_kbfun_press_release(!IS_PRESSED, KEY_RightShift);
+}
+
+/*
+ * [name]
+ *   Layer push #4
+ *
+ * [description]
+ *   Push a layer element containing the layer value specified in the keymap to
+ *   the top of the stack, and record the id of that layer element
+ */
+void kbfun_layer_push_4_remove_alt_gr(void) {
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	kbfun_layer_push_4();
+}
+
+/*
+ * [name]
+ *   Layer pop #4
+ *
+ * [description]
+ *   Pop the layer element created by the corresponding "layer push" function
+ *   out of the layer stack (no matter where it is in the stack, without
+ *   touching any other elements)
+ */
+void kbfun_layer_pop_4_remove_alt_gr(void) {
+	kbfun_layer_pop_4();
+	if (!_kbfun_is_pressed(KEY_RightAlt))
+        _kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	else
+        _kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	//_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ *
+ */
+void kbfun_mediakey_press_release_with_altgr(void) {
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+	kbfun_mediakey_press_release();
+}
+
+/*
+ *
+ */
+void kbfun_mediakey_press_release_with_altgr_reversed(void) {
+	kbfun_mediakey_press_release();
+	_kbfun_press_release(IS_PRESSED, KEY_RightAlt);
+}
+
+/*
+ *
+ */
+void kbfun_mediakey_press_release_removed_altgr(void) {
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+	kbfun_mediakey_press_release();
+}
+
+/*
+ *
+ */
+void kbfun_mediakey_press_release_removed_altgr_reversed(void) {
+	kbfun_mediakey_press_release();
+	_kbfun_press_release(!IS_PRESSED, KEY_RightAlt);
+}
