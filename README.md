@@ -1,6 +1,6 @@
 # Ergodox Keyboard
 
-![Result](photos/ergodoxWR_M.jpg)
+![Result](photos/ergodoxFront_M.jpg)
 Final result: ErgoDox keyboard with Minimak-8 layout, Cherry MX clear keys and leather wrist rests.
 
 # Touch typing needs ergonomic keyboards
